@@ -1,0 +1,63 @@
+.Register {
+	display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    flex-wrap: wrap;
+    background-image: linear-gradient(to right, #403a3e, #be5869);;
+}
+
+.errorMsg { 
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid rgba(224, 19, 19, 0.845);
+    border-radius: 15px;
+    background-color: rgba(255, 0, 0, 0.465);
+    padding: 1rem;
+}
+
+input { 
+    width: 15rem;
+    height: 3rem;
+    font-size: 20px;
+    top: 1px;
+}
+
+.valid {
+    color: limegreen; 
+    margin-left: 1rem;
+}
+
+.error { 
+    color: rgb(255, 51, 0);
+    animation: spin infinite 1s linear;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.instructions { 
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -4px;
+}
+
+.instructions > svg { 
+    margin-right: 1.25rem;
+}
+
+
