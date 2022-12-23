@@ -22,5 +22,6 @@ export class VacationModel {
         this.price = vacation.price;
         this.user_id = vacation.user_id;
     }
-}
+}  
+
 
