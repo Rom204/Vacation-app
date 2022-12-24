@@ -11,20 +11,18 @@ import SingleVacation from "../Templates/SingleVacation";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 function Vacations(): JSX.Element {
-    const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => state.user);
     const [user, setUser] = useState<UserModel>()
     const [vacations, setVacations] = useState<VacationModel[]>([])
-    const [open, setOpen] = useState(false);
     const [page, setPage] = useState(1);
-    const [isFollowed, setIsFollowed] = useState(0);
-    const [vacationsID, setVacationsID] = useState([]);
+    const [isFollowed, setIsFollowed] = useState<boolean>(false);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
     useEffect(() => {
         if (isAuth) {
+          console.log(isAuth.user_id)
           axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
           .then((response) => {
               let result = response.data;
@@ -40,77 +38,42 @@ function Vacations(): JSX.Element {
         } else {
           console.log("error no user connected to vacations page")
         }
-    }, [page, user,isFollowed]);
+    }, [page,isFollowed,isAuth]);
     console.log("vacations", vacations);
-    // console.log("user", user);
-    // useEffect(() => {
-    //   checkFollowedVacations();
-    // }, [user,isFollowed]);
-
-    // const checkFollowedVacations = () => {
-    //   console.log("check it" , user);
-    //   if (user?.id !== undefined) {
-    //     axios.get(`http://localhost:3000/user/vacationsID/${user?.id}`)
-    //     .then((response) => {
-    //       let result = response.data;
-    //       console.log(response.data);
-    //       setVacations(result)
-    //     });
-    //   }
-    // }
-
-    // console.log(user?.username);
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
   
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    // const handleFollow = (vacationID:number, index:number) => {
-    //   axios.post(`http://localhost:3000/user/allVacations/${vacationID}/${user?.id}`);
-    //   setIsFollowed(index);
-    // };
-
-    // const handleUnFollow = (vacationID:number, index:number) => {
-    //   axios.delete(`http://localhost:3000/user/allVacationsDelete/${vacationID}/${user?.id}`);
-    //   setIsFollowed(999);
-    // };
-
-    // const handleDelete = (id: number) => {
-    //   axios.delete(`http://localhost:3000/vacation/delete/${id}`);
-    //   setVacations(vacations.filter((vacation) => vacation.id!== id));
-    //   handleClose()
-    // };
 
     const deleteHandler = (id : number) => {
       setVacations(vacations.filter((vacation) => vacation.id!== id));
     } 
-    
 
+    const handleFollowing = () => {
+      setIsFollowed(!isFollowed);
+    }
+    
     return (
-            <Box sx={{   display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
+            <Box sx={{ height:{xs:"100%", },  display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
+            <Box sx={{ display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap" }}>
             {vacations.map((item, index) => {
                 return (
                   <SingleVacation 
-                    key={index} 
-                    id={item.id} 
-                    information={item.information} 
-                    location={item.location} 
-                    image={item.image} 
-                    imageName={item.imageName} 
-                    date_from={item.date_from} 
-                    date_to={item.date_to} 
-                    price={item.price} 
-                    user_id={0} 
-                    firstName={""} 
-                    lastName={""} 
-                    username={isAuth.username} 
-                    Pwd={""} 
-                    matchedPwd={""} 
-                    user_role={isAuth.user_role} 
-                    filter={deleteHandler}/>
+                    key={index}
+                    id={item.id}
+                    information={item.information}
+                    location={item.location}
+                    image={item.image}
+                    imageName={item.imageName}
+                    date_from={item.date_from}
+                    date_to={item.date_to}
+                    price={item.price}
+                    user_id={item.user_id}
+                    firstName={""}
+                    lastName={""}
+                    username={isAuth.username}
+                    Pwd={""}
+                    matchedPwd={""}
+                    user_role={isAuth.user_role}
+                    filter={deleteHandler} 
+                    following={handleFollowing}/>
                     // <Card key={item.id} elevation={24} sx={{ backgroundColor: "whitesmoke", height: "55%" , width: {xs: "70%", md: "25%"}, display: "flex",  flexDirection: "column", alignItems: "center", margin: "1rem" }}>
                     //     <CardHeader
                     //       title={item.location}
@@ -191,9 +154,12 @@ function Vacations(): JSX.Element {
                     // </Card>
                 )
             })}
-              <Stack spacing={2} >
-                <Pagination sx={{ position: "absolute", bottom: "1px", right:"45%" }} count={10} page={page} onChange={handleChange} />
-              </Stack>
+            </Box>
+            <Box sx={{ border: "1px solid black", display:"block" }}>
+              {/* <Stack spacing={22} > */}
+                <Pagination  count={10} page={page} onChange={handleChange} />
+              {/* </Stack> */}
+              </Box>
             </Box>
     );
 };

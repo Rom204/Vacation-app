@@ -51,14 +51,14 @@ router.post(Users.checkLogin, async (request: Request, response: Response, next:
 })
 
 router.post("/checkToken", (request: Request, response: Response, next: NextFunction) => {
-  console.log(request.headers.authorization);
+  // console.log(request.headers.authorization);
   try { 
     const auth = request.headers.authorization
     const result = user_logic.checkToken(auth)
-    console.log(result)
+    // console.log(result)
     response.status(200).json(result)
   } catch (err){
-    console.log(err);
+    // console.log(err);
     response.status(404).json("username or password incorrect")
   }
 })
@@ -100,6 +100,7 @@ router.delete("/allVacationsDelete/:vacationID/:user_id", async (request: Reques
 router.get("/vacationsID/:id", async (request: Request, response: Response, next:NextFunction) => {
   try {
     const id = +request.params.id;
+    console.log(id);
     response.status(200).json(await user_logic.vacationsID(id));
   } catch (err) {
     console.log(err);
