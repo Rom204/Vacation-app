@@ -15,7 +15,7 @@ router.get(Urls.getAllSomethingURL, async (request: Request, response: Response,
 })
 
 // gets single piece of information from DB
-router.get(Urls.getSingleSomethingURL, async (request: Request, response: Response, next: NextFunction) => {
+router.get(Urls.getSingleSomethingURL, async (request, response: Response, next: NextFunction) => {
   const id = +request.params.id;
   response.status(200).json( await logic.getSingleFunction(id))
 })

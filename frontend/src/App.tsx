@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import Header from './Components/Layout/Header';
 import Main from './Components/Layout/Main';
-import Footer from './Components/Layout/Footer';
 import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from './hooks';
 import axios from 'axios';
@@ -16,16 +15,15 @@ function App() {
     } else {
       const token = localStorage.getItem("token");
       if (token) {
-        console.log(token)
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         axios.post("http://localhost:3000/user/checkToken")
         .then((response) => {
-          console.log(response);
           dispatch(login(response.data))
         })
       }
     }
   },[]);
+
   return (
     <Box sx={{ padding: "0px" }}>
       <header>

@@ -1,17 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
 import userReducer from "./features/user/userSlice";
-// change
-// const reducers = combineReducers({ 
-//     userState: UserReducer,
-    
-// });
+import vacationReducer from "./features/vacation/vacationSlice";
+
 
 export const store = configureStore({
-    // change
-    // reducer: reducers
     reducer: { 
         user: userReducer,
+        vacation: vacationReducer
     }
 });
 

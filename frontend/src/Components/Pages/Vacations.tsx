@@ -8,8 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Validations_Service from "../Services/Validations_Service";
 import SingleVacation from "../Templates/SingleVacation";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 function Vacations(): JSX.Element {
+    const dispatch = useAppDispatch();
+    const isAuth = useAppSelector((state) => state.user);
     const [user, setUser] = useState<UserModel>()
     const [vacations, setVacations] = useState<VacationModel[]>([])
     const [open, setOpen] = useState(false);
@@ -21,10 +24,11 @@ function Vacations(): JSX.Element {
   };
 
     useEffect(() => {
-        if (user) {
-          axios.get(`http://localhost:3000/user/vacationsID/${user?.user_id}`)
+        if (isAuth) {
+          axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
           .then((response) => {
               let result = response.data;
+              console.log(result);
               if (page === 1) {
                 let slice = result.splice(page-1, 5);
                 setVacations(slice);
@@ -34,10 +38,8 @@ function Vacations(): JSX.Element {
               }
           })
         } else {
-          // Validations_Service.ValidationByJWT();
-          // setUser(store.getState().userState.user);
+          console.log("error no user connected to vacations page")
         }
-          // console.log(user?.username)
     }, [page, user,isFollowed]);
     console.log("vacations", vacations);
     // console.log("user", user);
@@ -82,11 +84,33 @@ function Vacations(): JSX.Element {
     //   handleClose()
     // };
 
+    const deleteHandler = (id : number) => {
+      setVacations(vacations.filter((vacation) => vacation.id!== id));
+    } 
+    
+
     return (
             <Box sx={{   display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
             {vacations.map((item, index) => {
                 return (
-                  <SingleVacation key={index} id={item.id} information={item.information} location={item.location} image={item.image} imageName={item.imageName} date_from={item.date_from} date_to={item.date_to} price={item.price} user_id={item.user_id} firstName={""} lastName={""} username={""} Pwd={""} matchedPwd={""} user_role={""}/>
+                  <SingleVacation 
+                    key={index} 
+                    id={item.id} 
+                    information={item.information} 
+                    location={item.location} 
+                    image={item.image} 
+                    imageName={item.imageName} 
+                    date_from={item.date_from} 
+                    date_to={item.date_to} 
+                    price={item.price} 
+                    user_id={0} 
+                    firstName={""} 
+                    lastName={""} 
+                    username={isAuth.username} 
+                    Pwd={""} 
+                    matchedPwd={""} 
+                    user_role={isAuth.user_role} 
+                    filter={deleteHandler}/>
                     // <Card key={item.id} elevation={24} sx={{ backgroundColor: "whitesmoke", height: "55%" , width: {xs: "70%", md: "25%"}, display: "flex",  flexDirection: "column", alignItems: "center", margin: "1rem" }}>
                     //     <CardHeader
                     //       title={item.location}

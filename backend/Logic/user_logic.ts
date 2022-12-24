@@ -106,9 +106,7 @@ const addNewUser = async (user: UserModel) => {
 // ________________________________________________________________
 
 
-
 const updateUser = async (user: UserModel): Promise<UserModel> => {
-
     const sql = `
     UPDATE vacation.users 
     SET firstName = '${user.username}'
@@ -122,20 +120,8 @@ const deleteUser = async (id: number): Promise<void> => {
     const sql = `
     DELETE FROM vacation.users WHERE id=${id}
     `;
-    const response = await dal.execute(sql);
-    
+    const response = await dal.execute(sql); 
 }
-// vacations and users table logic section might open different file for it late 
-// const allVacationsUser = async (vacationID : number, username: string ) => {
-//     const sql =`
-//         INSERT INTO vacation.vacations_and_users VALUES
-//         (DEFAULT,
-//         '${vacationID}',
-//         '${username}')
-//     `;
-//     const result = await dal.execute(sql);
-//     return result;
-// }
 
 const allVacationsUser = async (vacationID : number, user_id: number ) => {
     const sql =`
@@ -165,27 +151,21 @@ const vacationsID = async (userID: number) => {
     const result = await dal.execute(sql);
     return result;
 }
-// const vacationsID = async (username: string) => {
-//     const sql =`
-//         SELECT vacation_id FROM vacation.vacations_and_users WHERE username = '${username}'
-//     `;
-//     const result = await dal.execute(sql);
-//     return result;
-// }
-    type MyToken = {
-        id: number
-        username: string
-        role: string
-        iat: number
-        exp: number
-    }
-    const checkToken = (auth : string) => {
-        const token = auth.split(" ")[1];
-        if (token) {
-            const verified = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET) as MyToken;
-            return verified;
-        } 
-    }
+
+type MyToken = {
+    id: number
+    username: string
+    role: string
+    iat: number
+    exp: number
+}
+const checkToken = (auth : string) => {
+    const token = auth.split(" ")[1];
+    if (token) {
+        const verified = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET) as MyToken;
+        return verified;
+    } 
+}
 
 // exporting 
 export default {

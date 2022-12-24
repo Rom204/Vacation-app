@@ -10,20 +10,17 @@ interface props extends VacationModel {
   
 }
 interface iprops extends UserModel {
-
+  filter: (id:number) => void;
 }
 
 
 export default function SingleVacation (vacation : props & iprops) {
-    const [vacations, setVacations] = useState<VacationModel[]>([])
     console.log(vacation);
+    const [vacations, setVacations] = useState<props | iprops>()
+    // setVacations(vacation)
     const [open, setOpen] = useState(false);
-    const [page, setPage] = useState(1);
     const [isFollowed, setIsFollowed] = useState(0);
-  //   const [vacationsID, setVacationsID] = useState([]);
-  //   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-  //   setPage(value);
-  // };  
+    
       const handleClickOpen = () => {
         setOpen(true);
       };
@@ -43,7 +40,8 @@ export default function SingleVacation (vacation : props & iprops) {
   
       const handleDelete = (id: number) => {
         axios.delete(`http://localhost:3000/vacation/delete/${id}`);
-        setVacations(vacations.filter((vacation) => vacation.id!== id));
+        // setVacations(vacations.filter((vacation) => vacation.id!== id));
+        vacation.filter(id);
         handleClose()
       };
 
