@@ -14,16 +14,14 @@ import Vacations from "../Pages/Vacations";
 import { PrivateAdminRouter, PrivateOutletRouter } from "../Services/Private_Route_Service";
 
 function Main(): JSX.Element {
-    // const [user, setUser] = useState<UserModel>()
-    // useEffect(() => {
-    //     // Validations_Service.ValidationByJWT();
-    //     // setUser(store.getState().userState.user)
-    // },[])
+    
     return (
         <Box >
 			<Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/vacations" element={<Vacations/>}/>
+                <Route path="/user" element={<PrivateOutletRouter/>}>
+                    <Route path="vacations" element={<Vacations/>}/>
+                </Route>
                 <Route path="/user" element={<PrivateAdminRouter/>}>
                     <Route path="admin" element={<Admin/>}/>
                 </Route>

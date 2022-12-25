@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   const navigation = [
-    { name: "Vacations", path: "/vacations", icon: faMagnifyingGlass  },
+    { name: "Vacations", path: "/user/vacations", icon: faMagnifyingGlass  },
     { name: "follow", path: "/user/follow", icon: faMapLocationDot }, 
   ] 
 

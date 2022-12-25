@@ -2,9 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { UserModel } from "../../Models/user_model";
 import { VacationModel } from "../../Models/vacation_model";
-import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Pagination, Stack, Tooltip, Typography } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import { useAppSelector } from "../../hooks";
 import DeleteDialog from "./DeleteDialog";
 import EditDialog from "./EditDialog";
@@ -17,13 +15,8 @@ interface iprops extends UserModel {
   following: () => void;
 }
 
-
 export default function SingleVacation (vacation : props & iprops) {
   
-  // console.log(vacation);
-  // const [vacations, setVacations] = useState<props | iprops>()
-  // setVacations(vacation)
-  // const [isFollowed, setIsFollowed] = useState<Boolean>(false);
   const isAuth = useAppSelector((state) => state.user);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -87,11 +80,7 @@ export default function SingleVacation (vacation : props & iprops) {
           {vacation.user_role === "admin" ?
           // _________________Admin Section__________________
             <Box sx={{ display:"flex" }}>
-              {/* <Tooltip title="Delete vacation post">
-                <IconButton onClick={handleClickOpenDelete}>
-                  <DeleteIcon color="error"  />
-                </IconButton>
-              </Tooltip> */}
+              
               <DeleteDialog 
                 vacation_id={vacation.id} 
                 state={openDelete} 
@@ -113,55 +102,6 @@ export default function SingleVacation (vacation : props & iprops) {
                 date_to={vacation.date_to} 
                 price={vacation.price} 
                 user_id={vacation.user_id}/>
-              {/* <Dialog
-                open={openDelete}
-                onClose={handleCloseDelete}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"Are you sure you want to delete this vacation?"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    Deleting this post means you or any other user within this application will no longer be 
-                    able to see it never again.
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseDelete} autoFocus>Cancel</Button>
-                  <Button onClick={() => {handleDelete(vacation.id)}} color="error">
-                    Delete
-                  </Button>
-                </DialogActions>
-              </Dialog> */}
-              
-              {/* <Tooltip title="Edit vacation post">
-                <IconButton onClick={handleClickOpenEdit}>
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-              <Dialog
-                open={openEdit}
-                onClose={handleCloseEdit}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-              >
-                <DialogTitle id="alert-dialog-title">
-                  {"Are you sure you want to delete this vacation?"}
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleCloseEdit} autoFocus>Cancel</Button>
-                  <Button onClick={() => {handleDelete(vacation.id)}} color="error">
-                    Delete
-                  </Button>
-                </DialogActions>
-              </Dialog> */}
             </Box>
             : 
             // ________User Section________

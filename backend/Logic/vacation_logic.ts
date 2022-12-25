@@ -32,6 +32,17 @@ const getAllVacationsCount = async (id) => {
     const sql = `
         SELECT COUNT(${id}) FROM vacation.vacations_table
     `;
+    // const sql =`
+    //     SELECT vacation.vacations_table.*, vacation_id,
+    //     COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
+    //     FROM vacation.vacations_table JOIN vacation.vacations_and_users
+    //     ONvacation.vacations_table.followers = vacation.vacations_and_users.followers
+    // `;
+
+    // DELETE vacation.vacations, vacation.vacations_and_users
+    //     FROM vacation.vacations
+    //     INNER JOIN vacation.vacations_and_users ON vacation.vacations.id = vacation.vacations_and_users.vacation_id 
+    //     WHERE vacation.vacations.id=${id} 
     const number = await dal.execute(sql);
     return number;
 }
@@ -93,7 +104,10 @@ const updateVacation = async (vacation: VacationModel): Promise<VacationModel> =
 
 const deleteVacation = async (id: number): Promise<void> => {
     const sql = `
-    DELETE FROM vacation.vacations WHERE id=${id}
+        DELETE vacation.vacations, vacation.vacations_and_users
+        FROM vacation.vacations
+        INNER JOIN vacation.vacations_and_users ON vacation.vacations.id = vacation.vacations_and_users.vacation_id 
+        WHERE vacation.vacations.id=${id} 
     `;
 
     let name = await getSingleVacation(id);
@@ -103,7 +117,6 @@ const deleteVacation = async (id: number): Promise<void> => {
         }
     })
     const response = await dal.execute(sql);
-    
 }
 
 // exporting 
@@ -115,5 +128,3 @@ export default {
     updateVacation,
     getAllVacationsCount
 }
-
-
