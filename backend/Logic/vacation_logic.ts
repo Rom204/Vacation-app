@@ -14,7 +14,8 @@ import path from "path"
 const getAllVacations = async (): Promise<VacationModel> => {
     // command line for the DB
     const sql = `
-        SELECT * FROM vacation.vacations
+        SELECT vacation_id,
+        COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
     `;
 
     // const sql2 =`
@@ -25,6 +26,14 @@ const getAllVacations = async (): Promise<VacationModel> => {
     // a promise function that connects us to the database with the command line
     const vacation = await dal.execute(sql);
     return vacation;
+}
+
+const getAllVacationsCount = async (id) => {
+    const sql = `
+        SELECT COUNT(${id}) FROM vacation.vacations_table
+    `;
+    const number = await dal.execute(sql);
+    return number;
 }
 
 const getSingleVacation = async (id: number): Promise<VacationModel> => {
@@ -61,12 +70,24 @@ const addVacation = async (newVacation: VacationModel, next): Promise<VacationMo
 
 
 const updateVacation = async (vacation: VacationModel): Promise<VacationModel> => {
+    
+    const extension = vacation.image?.name.split(".")[1]
+    const imageName = uuid()+"."+ extension;
+    vacation.image.name = imageName;
+
     const sql = `
     UPDATE vacation.vacations 
-    SET information = '${vacation.information}'
+    SET
+    information = '${vacation.information}',
+    location = '${vacation.location}',
+    information = '${vacation.image.name}',
+    date_from = '${vacation.date_from}',
+    date_to = '${vacation.date_to}',
+    price = '${vacation.price}',
     WHERE id = ${vacation.id}
     `;
-    const response : OkPacket = await dal.execute(sql);
+    const result :OkPacket = await dal.execute(sql);
+    vacation.image.mv("./uploadPics/"+imageName); 
     return vacation;
 }
 
@@ -91,7 +112,8 @@ export default {
     getSingleVacation,
     addVacation,
     deleteVacation,
-    updateVacation
+    updateVacation,
+    getAllVacationsCount
 }
 
 

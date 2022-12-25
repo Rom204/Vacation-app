@@ -18,6 +18,11 @@ router.get(Vacations.getAllVacationsURL, async (request: Request, response: Resp
   response.status(200).json( await vacation_logic.getAllVacations())
 })
 
+router.get("/getAllFollows/:id", async (request: Request, response: Response, next: NextFunction) => {
+  const id = +request.params.id;
+  response.status(200).json( await vacation_logic.getAllVacationsCount(id))
+})
+
 // gets single piece of information from DB
 router.get(Vacations.getSingleVacation, async (request: Request, response: Response, next: NextFunction) => {
   const id = +request.params.id;
@@ -30,7 +35,6 @@ router.get("/image/:imageName", async (request: Request, response: Response, nex
   response.status(200).sendFile(fullPath);
 })
 
-
 // sends information to DB
 router.post(Vacations.addVacation, async (request: Request, response: Response, next: NextFunction) => {
   console.log(request.body);
@@ -39,7 +43,6 @@ router.post(Vacations.addVacation, async (request: Request, response: Response, 
   console.log(newVacation.image.name);
   response.status(201).json( await vacation_logic.addVacation(newVacation, next))
 })
-
 
 // update information in DB
 router.put(Vacations.updateVacation, async (request: Request, response: Response, next: NextFunction) => {

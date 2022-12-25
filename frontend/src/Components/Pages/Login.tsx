@@ -1,19 +1,20 @@
+// REACT IMPORTS
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAppSelector, useAppDispatch } from "../../hooks"
 import { useNavigate } from "react-router-dom";
+// DIFFERENT IMPORTS
 import axios from "axios";
+// MUI IMPORTS
 import { Box, Button, Card } from "@mui/material";
 import { TextField } from "@mui/joy";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyIcon from '@mui/icons-material/Key';
 import EastIcon from '@mui/icons-material/East';
+// MY IMPORTS
+import { useAppSelector, useAppDispatch } from "../../hooks"
 import { UserModel } from "../../Models/user_model";
-// import { login } from "../../Redux/userState/action-creators"
-import Validations_Service from "../Services/Validations_Service";
-import "./Register/Register.css";
-import { RootState } from "../../Redux/store";
 import { login } from "../../Redux/features/user/userSlice";
+import "./Register/Register.css";
 // ________________________________________________________________
 
 function Login(): JSX.Element {
@@ -27,20 +28,15 @@ function Login(): JSX.Element {
             Pwd: ""
         }
     });
-
+    
+    const isAuth = useAppSelector((state) => state.user);
     const [username, Pwd] = watch(["username", "Pwd"]);
-
-    const [validName, setValidName] = useState(false);
-    const [validPwd, setValidPwd] = useState(false);
-
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
         setErrMsg('');
     }, [username, Pwd])
     
-    
-    const isAuth = useAppSelector((state) => state.user);
     const loginValidation  = async (data : UserModel)  => {
         if (username && Pwd){
             try {
@@ -57,8 +53,7 @@ function Login(): JSX.Element {
                     dispatch(login(response.data));
                     navigation("/");
                 })
-                console.log("important", isAuth)
-                
+                // console.log("important", isAuth)
             } catch (err : any ) { 
                 if (!err?.response) {
                     setErrMsg("no server response")

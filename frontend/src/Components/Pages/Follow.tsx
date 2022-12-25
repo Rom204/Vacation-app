@@ -1,17 +1,16 @@
-import { Box, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+
+import { Box, Card, Typography } from "@mui/material";
+
 import { UserModel } from "../../Models/user_model";
-import { store } from "../../Redux/store";
-import Validations_Service from "../Services/Validations_Service";
 
 function Follow(): JSX.Element {
-    const [user, setUser] = useState<UserModel>()
-    useEffect(() => {
-        // Validations_Service.ValidationByJWT();
-        // setUser(store.getState().userState.user)
-    },[]);
+    // const [user, setUser] = useState<UserModel>()
+    // useEffect(() => {
+    //     // Validations_Service.ValidationByJWT();
+    //     // setUser(store.getState().userState.user)
+    // },[]);
 
-    
     return (
         <Box sx={{ padding:"3rem", height: "100%", display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
             <Box>
@@ -22,5 +21,4 @@ function Follow(): JSX.Element {
         </Box>
     );
 }
-
 export default Follow;

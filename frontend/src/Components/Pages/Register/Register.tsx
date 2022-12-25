@@ -1,11 +1,16 @@
+// REACT IMPORTS
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+// DIFFERENT IMPORTS 
 import axios from "axios";
+// MUI IMPORTS
 import { Button, Card, Typography } from "@mui/material";
 import { TextField } from "@mui/joy";
+// ICONS & FONTS
 import { faCheck, faCircleInfo, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// MY IMPORTS
 import { UserModel } from "../../../Models/user_model";
 import "./Register.css";
 // ________________________________________________________________
@@ -42,7 +47,6 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-    
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(Pwd));
         setValidMatchedPwd(Pwd === matchedPwd);

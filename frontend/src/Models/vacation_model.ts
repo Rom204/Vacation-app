@@ -5,8 +5,8 @@ export class VacationModel {
     public location: string;
     public image: string;
     public imageName: string;
-    public date_from: Date = new Date();
-    public date_to: Date = new Date();
+    public date_from:string | Date = new Date();
+    public date_to:string |  Date = new Date();
     public price: number;
     public user_id: number;
 

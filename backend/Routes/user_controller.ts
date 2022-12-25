@@ -20,7 +20,6 @@ router.get(Users.getSingleUserUrl, async (request: Request, response: Response, 
   response.status(200).json( await user_logic.getSingleUser(id))
 })
 
-
 // ________________________________________________________________
 // this is ok!
 router.post(Users.addUserURL, async (request: Request, response: Response, next: NextFunction) => {
@@ -56,6 +55,7 @@ router.post("/checkToken", (request: Request, response: Response, next: NextFunc
     const auth = request.headers.authorization
     const result = user_logic.checkToken(auth)
     // console.log(result)
+    // response.set("Authorization",`Bearer ${auth}`)
     response.status(200).json(result)
   } catch (err){
     // console.log(err);
@@ -81,6 +81,7 @@ router.post("/allVacations/:vacationID/:user_id", async (request: Request, respo
   try {
     const vacationID = +request.params.vacationID;
     const user_id = +request.params.user_id;
+    const vacationName = request.params.vacation_name;
     response.status(201).json(await user_logic.allVacationsUser(vacationID, user_id));
   } catch (err){
     response.status(409).json("something went wrong")

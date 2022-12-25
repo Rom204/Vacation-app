@@ -8,33 +8,7 @@ import { login } from "../../Redux/features/user/userSlice";
 // const dispatch = useAppDispatch();
 const Validations_Service = {
   
-  // ValidationByJWT: function() {
-  //   const token = localStorage.getItem("token");
-  //       if (token) {
-  //           return {};
-  //       } else {
-  //         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  //         axios.post("http://localhost:3000/user/checkToken")
-  //         .then((response) => {
-  //             console.log(response);
-  //             return response.data
-  //           })
-  //       }
-  // },
-  // ValidationByJWT: function() {
-    
-
-  //   const token = localStorage.getItem("token");
-  //       if (!token) {
-  //         return {};
-  //       } else {
-          
-  //         } catch (error) {
-  //           console.log(error);
-  //           return {};
-  //         }
-  //       }
-  // },
+  
 
   ValidationOfUsername: async function (username: string) {
     let valid = false;

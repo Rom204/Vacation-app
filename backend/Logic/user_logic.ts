@@ -123,7 +123,7 @@ const deleteUser = async (id: number): Promise<void> => {
     const response = await dal.execute(sql); 
 }
 
-const allVacationsUser = async (vacationID : number, user_id: number ) => {
+const allVacationsUser = async (vacationID : number, user_id: number) => {
     const sql =`
         INSERT INTO vacation.vacations_and_users VALUES
         (DEFAULT,

@@ -1,12 +1,9 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Pagination, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { UserModel } from "../../Models/user_model";
 import { VacationModel } from "../../Models/vacation_model";
-import { store } from "../../Redux/store";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Validations_Service from "../Services/Validations_Service";
+
 import SingleVacation from "../Templates/SingleVacation";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
