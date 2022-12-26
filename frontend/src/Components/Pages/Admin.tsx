@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 // DIFFERENT IMPORTS
 import axios from 'axios';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 // MUI IMPORTS
 import { Box, Button, Card, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { TextField } from '@mui/joy';
@@ -20,11 +20,11 @@ export const Admin = () => {
     useEffect(() => {
       axios.get("http://localhost:3000/vacation/all")
       .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setVacations(response.data);
       })
     }, []);
-    console.log(vacations);
+    // console.log(vacations);
     const { register, handleSubmit } = useForm<VacationModel>({
         defaultValues : 
         {
@@ -62,8 +62,8 @@ export const Admin = () => {
     };
     const Data = vacations.map((item) => {
       return {
-        name: item["vacation_id"],
-        uv: item["followers"]
+        name: item["vacation_name"],
+        followers: item["followers"]
       }
     })
     
@@ -108,9 +108,10 @@ return (
 
             <ResponsiveContainer width="90%" height="90%">
               <BarChart width={150} height={40} data={Data}>
-                <Bar dataKey="uv" fill="#8884d8" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="name" label={{ fontWeight:"600", value: 'vacations', position: 'insideBottomRight',offset:-5}}/>
+                <YAxis label={{ fontWeight:"600", value: 'followers count', angle: -90 }}/>
+                <Tooltip/>
+                <Bar dataKey="followers" fill="#8884d8" label={{ stroke:"green", fontWeight:"600", position: 'top' }} />
               </BarChart>
             </ResponsiveContainer>
         </Card>

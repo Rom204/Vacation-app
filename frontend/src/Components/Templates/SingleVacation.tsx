@@ -35,8 +35,8 @@ export default function SingleVacation (vacation : props & iprops) {
     setOpenEdit(false);
   };
 
-  const handleFollow = (vacationID:number) => {
-    axios.post(`http://localhost:3000/user/allVacations/${vacationID}/${isAuth.user_id}`);
+  const handleFollow = (vacationID:number, vacation_name:string) => {
+    axios.post(`http://localhost:3000/user/allVacations/${vacationID}/${isAuth.user_id}/${vacation_name}`);
     vacation.following()
   };
   const handleUnFollow = (vacationID:number) => {
@@ -109,7 +109,7 @@ export default function SingleVacation (vacation : props & iprops) {
                 size="small" 
                 color={vacation.user_id !== null ? "error" : "success"}
                 variant={vacation.user_id !== null ? "contained" : "outlined"}
-                onClick={vacation.user_id !== null ? () => {handleUnFollow(vacation.id)} : () => {handleFollow(vacation.id)}}> 
+                onClick={vacation.user_id !== null ? () => {handleUnFollow(vacation.id)} : () => {handleFollow(vacation.id,vacation.location)}}> 
                 {vacation.user_id !== null ? "unFollow" : "Follow"}
               </Button>
           }

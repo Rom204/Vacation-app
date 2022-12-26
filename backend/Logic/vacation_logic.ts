@@ -5,7 +5,6 @@ import { OkPacket } from "mysql";
 import { VacationModel } from "../Models/vacation_model";
 import {v4 as uuid} from "uuid";
 import fs from "fs";
-import path from "path"
 
 
 
@@ -14,9 +13,17 @@ import path from "path"
 const getAllVacations = async (): Promise<VacationModel> => {
     // command line for the DB
     const sql = `
-        SELECT vacation_id,
-        COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
+        SELECT vacation_name, vacation_id,
+        COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id, vacation_name
     `;
+    // const sql = `
+    //     SELECT vacation_id,
+    //     COUNT(vacation.vacations_and_users.vacation_id) AS followers
+    //     FROM vacation.vacations_and_users
+    //     JOIN vacation.vacations
+    //     ON vacation.vacations_and_users.vacation_id = vacation.vacations.id
+    //     GROUP BY vacation_id
+    // `;
 
     // const sql2 =`
     //     SELECT SCHEMA_NAME.TABLE_NAME1.*, SCHEMA_NAME.TABLE_NAME2.field_you want to add AS how_the_field_will_be_displayed
@@ -28,16 +35,16 @@ const getAllVacations = async (): Promise<VacationModel> => {
     return vacation;
 }
 
-const getAllVacationsCount = async (id) => {
-    const sql = `
-        SELECT COUNT(${id}) FROM vacation.vacations_table
-    `;
-    // const sql =`
-    //     SELECT vacation.vacations_table.*, vacation_id,
-    //     COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
-    //     FROM vacation.vacations_table JOIN vacation.vacations_and_users
-    //     ONvacation.vacations_table.followers = vacation.vacations_and_users.followers
+const getAllVacationsCount = async () => {
+    // const sql = `
+    //     SELECT COUNT(${id}) FROM vacation.vacations_table
     // `;
+    const sql =`
+        SELECT vacation.vacations_table.*, vacation_id,
+        COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
+        FROM vacation.vacations_table JOIN vacation.vacations_and_users
+        ON vacation.vacations_table.followers = vacation.vacations_and_users.followers
+    `;
 
     // DELETE vacation.vacations, vacation.vacations_and_users
     //     FROM vacation.vacations

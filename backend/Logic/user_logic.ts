@@ -112,12 +112,13 @@ const deleteUser = async (id: number): Promise<void> => {
     const response = await dal.execute(sql); 
 }
 
-const allVacationsUser = async (vacationID : number, user_id: number) => {
+const allVacationsUser = async (vacationID : number, user_id: number,vacation_name : string) => {
     const sql =`
         INSERT INTO vacation.vacations_and_users VALUES
         (DEFAULT,
         ${vacationID},
-        ${user_id})
+        ${user_id},
+        '${vacation_name}')
     `;
     const result = await dal.execute(sql);
     return result;

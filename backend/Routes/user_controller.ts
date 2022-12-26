@@ -83,12 +83,12 @@ router.delete(Users.deleteUserURL, async (request: Request, response: Response, 
 
 // __________________________________________________________________
 // vacations and user table routes 
-router.post("/allVacations/:vacationID/:user_id", async (request: Request, response: Response, next: NextFunction) => {
+router.post("/allVacations/:vacationID/:user_id/:vacation_name", async (request: Request, response: Response, next: NextFunction) => {
   try {
     const vacationID = +request.params.vacationID;
     const user_id = +request.params.user_id;
     const vacationName = request.params.vacation_name;
-    response.status(201).json(await user_logic.allVacationsUser(vacationID, user_id));
+    response.status(201).json(await user_logic.allVacationsUser(vacationID, user_id,vacationName));
   } catch (err){
     response.status(409).json("something went wrong")
   }

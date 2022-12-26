@@ -20,7 +20,7 @@ router.get(Vacations.getAllVacationsURL, async (request: Request, response: Resp
 
 router.get("/getAllFollows/:id", async (request: Request, response: Response, next: NextFunction) => {
   const id = +request.params.id;
-  response.status(200).json( await vacation_logic.getAllVacationsCount(id))
+  response.status(200).json( await vacation_logic.getAllVacationsCount())
 })
 
 // gets single piece of information from DB
