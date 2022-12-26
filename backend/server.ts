@@ -17,7 +17,11 @@ const server = express();
 mysql_create_table()
 
 // cross origin platforms
-server.use(cors());
+// define what headers should be returned in the response 
+const corsOptions = {
+    exposedHeaders: "authorization"
+}
+server.use(cors(corsOptions));
 
 server.use(fileUpload({
     createParentPath:true

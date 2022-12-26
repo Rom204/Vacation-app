@@ -50,7 +50,6 @@ const getSingleUser = async (id: number): Promise<UserModel> => {
     return user;
 }
 
-
 const checkLogin = async (user: UserModel) => {
     
     const sql =`
@@ -63,22 +62,12 @@ const checkLogin = async (user: UserModel) => {
         const username = usernameExists[0]["username"];
         const match = await bcrypt.compare(user.password,usernameExists[0]["password"]);
         const user_role = usernameExists[0]["role"];
-        // create token generator func
-        const AccessToken = jwt.sign(
-            {   
-                "user_id": user_id,
-                "username": user.username,
-                "user_role": user_role,
-            },
-            process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "5h"}
-        );
+        
         if (match) {
             return ({
                 user_id,
                 username,
                 user_role,
-                AccessToken
             })
         } 
     } else {

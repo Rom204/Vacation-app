@@ -44,16 +44,14 @@ function Login(): JSX.Element {
                     {
                     username: data.username,
                     password: data.Pwd
-                    }
+                    },
                 )
                 .then (response => {
-                    console.log(response.data);
-                    const token = response.data["AccessToken"];
+                    const token : any = response.headers.authorization?.split(" ")[1];
                     localStorage.setItem("token", token);
                     dispatch(login(response.data));
                     navigation("/");
                 })
-                // console.log("important", isAuth)
             } catch (err : any ) { 
                 if (!err?.response) {
                     setErrMsg("no server response")

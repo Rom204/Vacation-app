@@ -2,6 +2,7 @@
 import express, {NextFunction, Request, Response} from 'express';
 import user_logic from '../Logic/user_logic';
 import { Users } from '../Utils/urls';
+import { getJWT } from '../MiddleWare/jwt';
 
 // generic router 
 const router = express.Router();
@@ -40,9 +41,14 @@ router.post(Users.addUserURL, async (request: Request, response: Response, next:
 
 router.post(Users.checkLogin, async (request: Request, response: Response, next: NextFunction) => {
   try { 
-    console.log(request.body);
+    // console.log(request.body);
     const userData = request.body;
-    response.status(200).json(await user_logic.checkLogin(userData))
+    const result = await user_logic.checkLogin(userData);
+    if (result) {
+      const token = await getJWT(result);
+      response.set("authorization",`Bearer ${token}`)
+      response.status(200).json(result)
+    }
   } catch (err){
     console.log(err);
     response.status(404).json("username or password incorrect")
@@ -54,7 +60,7 @@ router.post("/checkToken", (request: Request, response: Response, next: NextFunc
   try { 
     const auth = request.headers.authorization
     const result = user_logic.checkToken(auth)
-    // console.log(result)
+    console.log(result)
     // response.set("Authorization",`Bearer ${auth}`)
     response.status(200).json(result)
   } catch (err){
