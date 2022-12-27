@@ -8,7 +8,6 @@ import fs from "fs";
 
 
 
-
 // functions( async / await ) for getting data from DB
 const getAllVacations = async (): Promise<VacationModel> => {
     // command line for the DB
@@ -88,24 +87,41 @@ const addVacation = async (newVacation: VacationModel, next): Promise<VacationMo
 
 
 const updateVacation = async (vacation: VacationModel): Promise<VacationModel> => {
-    
-    const extension = vacation.image?.name.split(".")[1]
-    const imageName = uuid()+"."+ extension;
-    vacation.image.name = imageName;
-
-    const sql = `
-    UPDATE vacation.vacations
-    SET
-    information = '${vacation.information}',
-    location = '${vacation.location}',
-    imageName = '${vacation.image.name}',
-    date_from = '${vacation.date_from}',
-    date_to = '${vacation.date_to}',
-    price = '${vacation.price}',
-    WHERE id = ${vacation.id}
-    `;
+    console.log(vacation)
+    let sql =``;
+    if(vacation.image){
+        fs.unlink(`./uploadPics/${vacation["prevImageName"]}`, (err) => {
+        if (err) {
+            console.error(err);
+        }})
+        const extension = vacation.image?.name.split(".")[1]
+        const imageName = uuid()+"."+ extension;
+        vacation.image.name = imageName;
+        vacation.image.mv("./uploadPics/"+imageName);
+        sql = `
+            UPDATE vacation.vacations
+            SET
+            information = '${vacation.information}',
+            location = '${vacation.location}',
+            imageName = '${vacation.image.name}',
+            date_from = '${vacation.date_from}',
+            date_to = '${vacation.date_to}',
+            price = '${vacation.price}'
+            WHERE id = ${vacation.id}
+        `;    
+    } if(!vacation.image) {
+        sql = `
+            UPDATE vacation.vacations
+            SET
+            information = '${vacation.information}',
+            location = '${vacation.location}',
+            date_from = '${vacation.date_from}',
+            date_to = '${vacation.date_to}',
+            price = '${vacation.price}'
+            WHERE id = ${vacation.id}
+        `;
+    }
     const result :OkPacket = await dal.execute(sql);
-    vacation.image.mv("./uploadPics/"+imageName); 
     return vacation;
 }
 

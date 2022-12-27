@@ -43,8 +43,21 @@ router.post(Vacations.addVacation, async (request: Request, response: Response, 
 
 // update information in DB
 router.put(Vacations.updateVacation, async (request: Request, response: Response, next: NextFunction) => {
-  const someData = request.body;
-  response.status(201).json( await vacation_logic.updateVacation(someData));
+  try{
+    const newVacation = request.body;
+    const file : any = request.files?.image;
+    if (file) {
+      newVacation.image = request.files.image;
+      const result = await vacation_logic.updateVacation(newVacation)
+      response.status(201).json(result);
+      
+    } if(!file) {
+      const result = await vacation_logic.updateVacation(newVacation)
+      response.status(201).json(result);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 // delete information from DB

@@ -93,19 +93,20 @@ export default function SingleVacation (vacation : props & iprops) {
                 handleDelete={handleDelete}/>
 
               <EditDialog 
-                vacation_id={0}
+                vacation_id={vacation.id}
                 state={openEdit}
                 handleOpen={handleClickOpenEdit}
                 handleClose={handleCloseEdit}
-                handleEdit={handleEdit} id={0} 
-                information={vacation.information} 
-                location={vacation.location} 
-                image={vacation.image} 
-                imageName={vacation.imageName} 
-                date_from={vacation.date_from} 
-                date_to={vacation.date_to} 
-                price={vacation.price} 
-                user_id={vacation.user_id}/>
+                handleEdit={handleEdit} id={0}
+                information={vacation.information}
+                location={vacation.location}
+                image={vacation.image}
+                imageName={vacation.imageName}
+                date_from={vacation.date_from}
+                date_to={vacation.date_to}
+                price={vacation.price}
+                user_id={vacation.user_id} 
+                prevImageName={""}/>
             </Box>
             : 
             // ________User Section________

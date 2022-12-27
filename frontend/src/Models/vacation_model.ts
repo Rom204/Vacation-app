@@ -5,8 +5,9 @@ export class VacationModel {
     public location: string;
     public image: string;
     public imageName: string;
-    public date_from:string | Date = new Date();
-    public date_to:string |  Date = new Date();
+    public prevImageName: string;
+    public date_from:any | Date = new Date();
+    public date_to:any | Date = new Date();
     public price: number;
     public user_id: number;
 
@@ -17,6 +18,7 @@ export class VacationModel {
         this.location = vacation.location;
         this.image = vacation.image;
         this.imageName = vacation.imageName;
+        this.prevImageName = vacation.prevImageName;
         this.date_from = vacation.date_from;
         this.date_to = vacation.date_to;
         this.price = vacation.price;

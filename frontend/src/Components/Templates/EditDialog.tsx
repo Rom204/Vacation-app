@@ -16,24 +16,23 @@ interface DialogProps extends VacationModel {
   handleEdit: () => void;
 }
 
-const EditDialog = ({ information, location, image, imageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose, handleEdit,  }: DialogProps) => {
-  console.log("this is image",imageName);
-  const navigation = useNavigate();
+const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose, handleEdit,  }: DialogProps) => {
+  console.log(vacation_id)
   const [file, setFile] = useState("");
   const [vacation, setVacation] = useState<VacationModel>()
-  const { register, handleSubmit, reset } = useForm<VacationModel>({
+  const { register, handleSubmit } = useForm<VacationModel>({
     defaultValues : 
     {
-        id : 0,
+        id : vacation_id,
         information : information,
         location: location,
         image : imageName,
+        prevImageName: imageName,
         date_from: date_from.toLocaleString().split("T")[0],
         date_to : date_to.toLocaleString().split("T")[0],
         price : price
     }
   });
-
 
   const handleFile = (e: any) => {
     e.preventDefault();
@@ -44,7 +43,8 @@ const EditDialog = ({ information, location, image, imageName, date_from, date_t
     console.log(file);
     newVacation.image = file;
     console.log(newVacation);
-    axios.put("http://localhost:3000/vacation/add", newVacation, {
+    axios.put("http://localhost:3000/vacation/add", newVacation,
+        {
         headers: {
             "Content-Type": "multipart/form-data"
         }
