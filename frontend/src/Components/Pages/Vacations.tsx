@@ -9,12 +9,21 @@ import { useAppSelector } from "../../hooks";
 function Vacations(): JSX.Element {
     const isAuth = useAppSelector((state) => state.user);
     const [vacations, setVacations] = useState<VacationModel[]>([])
+    const [followers, setFollowers] = useState<any>([]);
     const [isFollowed, setIsFollowed] = useState<boolean>(false);
     const [page, setPage] = useState(1);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
+  useEffect(() => {
+    axios.get("http://localhost:3000/vacation/all")
+    .then((response) => {
+        console.log(response.data);
+        setFollowers(response.data);
+    })
+  }, []);
+  console.log(followers);
     useEffect(() => {
         if (isAuth) {
           console.log(isAuth.user_id)
@@ -45,7 +54,12 @@ function Vacations(): JSX.Element {
     }
     
     return (
-      <Box sx={{ height:{xs:"100%", },  display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
+      <Box sx={{ height:{xs:"100%", },  display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundColor:"#303950" }}>
+        <Box sx={{ border: "1px solid black", display:"block", borderRadius:"5px" }}>
+          <Stack spacing={2} >
+            <Pagination  count={10} page={page} onChange={handleChange} color="standard" />
+          </Stack>
+        </Box>
         <Box sx={{ display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap" }}>
         {vacations.map((item, index) => {
             return (
@@ -66,15 +80,12 @@ function Vacations(): JSX.Element {
                 Pwd={""}
                 matchedPwd={""}
                 user_role={isAuth.user_role}
-                filter={deleteHandler} 
-                following={handleFollowing}/>
+                filter={deleteHandler}
+                following={handleFollowing} 
+                // followers={followers}
+                />
             )
         })}
-        </Box>
-        <Box sx={{ border: "1px solid black", display:"block" }}>
-          <Stack spacing={2} >
-            <Pagination  count={10} page={page} onChange={handleChange} />
-          </Stack>
         </Box>
       </Box>
     );

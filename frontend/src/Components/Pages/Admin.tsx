@@ -51,7 +51,7 @@ export const Admin = () => {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
-        }).then(() => navigation("/vacations"))
+        }).then(() => navigation("/user/vacations"))
     }
     const handleClickOpen = () => {
       setOpen(true);

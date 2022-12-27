@@ -34,16 +34,7 @@ const EditDialog = ({ information, location, image, imageName, date_from, date_t
     }
   });
 
-  // useEffect(() => {
-  //   setTimeout(() => setVacation({information: information, location: location, image:image, imageName: imageName,date_from:date_from.toLocaleString().split("T")[0], date_to:date_to,price:price ,user_id:user_id ,id:id  }));
-  // }, []);
 
-  // useEffect(() => {
-  //   reset(vacation)
-  // }, [vacation]);
-
-
-  // reset({ information: vacation.information, image: "", date_from: new Date(), date_to: new Date(), price: 0 })
   const handleFile = (e: any) => {
     e.preventDefault();
     setFile(e.target.files[0])
@@ -62,8 +53,8 @@ const EditDialog = ({ information, location, image, imageName, date_from, date_t
     return ( 
         <Box>
           <Tooltip title="Edit vacation post">
-            <IconButton onClick={handleOpen}>
-              <EditIcon />
+            <IconButton  onClick={handleOpen}>
+              <EditIcon sx={{ color:"whiteSmoke",":hover":{color:"green"} }} />
             </IconButton>
           </Tooltip>
           <Dialog

@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 , backgroundColor: "antiquewhite"}}>
-      <AppBar position="static" sx={{ backgroundColor: "#111", borderBottom: "2px solid rgba(51,51,51,.25)", fontFamily:"'FF Mark W05',Arial,sans-serif" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#505771", borderBottom: "2px solid rgba(51,51,51,.25)", fontFamily:"'FF Mark W05',Arial,sans-serif" }}>
         <Toolbar>
         <NavLink to={"/"} className="LOGO">
           <IconButton
@@ -102,7 +102,7 @@ export default function Navbar() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem  disabled sx={{ color: "blue", fontWeight:'600' }}>hello {isAuth.username}</MenuItem>
+              <MenuItem disabled sx={{ color: "blue", fontWeight:'600' }}>hello {isAuth.username}</MenuItem>
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleClose}>My account</MenuItem>
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>

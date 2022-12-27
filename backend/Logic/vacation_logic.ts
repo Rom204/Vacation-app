@@ -94,11 +94,11 @@ const updateVacation = async (vacation: VacationModel): Promise<VacationModel> =
     vacation.image.name = imageName;
 
     const sql = `
-    UPDATE vacation.vacations 
+    UPDATE vacation.vacations
     SET
     information = '${vacation.information}',
     location = '${vacation.location}',
-    information = '${vacation.image.name}',
+    imageName = '${vacation.image.name}',
     date_from = '${vacation.date_from}',
     date_to = '${vacation.date_to}',
     price = '${vacation.price}',

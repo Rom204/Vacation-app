@@ -2,10 +2,7 @@
 import express, {NextFunction, Request, Response} from 'express';
 import vacation_logic from '../Logic/vacation_logic';
 import { Vacations } from '../Utils/urls';
-import { UploadedFile } from "express-fileupload";
 import path from 'path';
-
-
 
 // generic router 
 const router = express.Router();

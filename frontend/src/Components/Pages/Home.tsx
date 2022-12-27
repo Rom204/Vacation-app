@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
 
 import { Box, Card, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 
-import { UserModel } from "../../Models/user_model";
 
 function Home(): JSX.Element {
-    // const [user, setUser] = useState<UserModel>()
-    // useEffect(() => {
-    // },[]);
     
     return (
-        <Box sx={{  height: "100%", display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>
-            <Box sx={{ height: "90%" , width: {xs: "90%", md: "90%"}, display: "flex",  flexDirection: "column", alignItems: "center" }}>
+        <Box sx={{  height: "100%", display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", backgroundColor:"#303950" }}>
+            <Box sx={{ height: "95%" , width: {xs: "95%", md: "95%"}, display: "flex",  flexDirection: "column", alignItems: "center" }}>
             <Card  elevation={24} sx={{ backgroundColor: "whitesmoke", height: "55%" , width: {xs: "70%", md: "45%"}, display: "flex",  flexDirection: "column", alignItems: "center", margin: "1rem" }}>
         <CardHeader
           title="this is tile"

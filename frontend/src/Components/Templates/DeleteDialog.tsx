@@ -15,7 +15,7 @@ const DeleteDialog = ({ vacation_id, state, handleOpen, handleClose, handleDelet
       <div>
       <Tooltip title="Delete vacation post">
                 <IconButton onClick={handleOpen}>
-                  <DeleteIcon color="error"  />
+                  <DeleteIcon sx={{ color:"whiteSmoke", ":hover":{color:"red"} }}  />
                 </IconButton>
               </Tooltip>
         <Dialog

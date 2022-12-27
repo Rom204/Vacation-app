@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { UserModel } from "../../Models/user_model";
 import { VacationModel } from "../../Models/vacation_model";
-import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Badge, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Chip, Typography } from "@mui/material";
 import { useAppSelector } from "../../hooks";
 import DeleteDialog from "./DeleteDialog";
 import EditDialog from "./EditDialog";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface props extends VacationModel {
-  
+  // followers: any;
 }
 interface iprops extends UserModel {
   filter: (id:number) => void;
@@ -16,7 +17,7 @@ interface iprops extends UserModel {
 }
 
 export default function SingleVacation (vacation : props & iprops) {
-  
+  // console.log('number',vacation.followers);
   const isAuth = useAppSelector((state) => state.user);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -54,29 +55,32 @@ export default function SingleVacation (vacation : props & iprops) {
     handleCloseEdit();
   }
     return (
-      <Card key={vacation.id} elevation={24} sx={{ backgroundColor: "whitesmoke", height: "55%" , width: {xs: "70%", md: "45%"}, display: "flex",  flexDirection: "column", alignItems: "center", margin: "1rem" }}>
-        <CardHeader
-          title={vacation.location}
-          subheader={["available between : " + vacation.date_from.toLocaleString().split("T")[0] + " - " +  vacation.date_to.toLocaleString().split("T")[0]]}
-        />
+      <Card key={vacation.id} elevation={24} sx={{ backgroundColor:"#303950", height: "55%" , width: {xs: "70%", md: "45%"}, display: "flex",  flexDirection: "column", margin: "1rem", border:"solid 0.5px grey", position:"relative" }}>
         <CardMedia
           component="img"
           alt="vacation image"
-          height="240"
+          height="340"
           image={`http://localhost:3000/${vacation.imageName}`}
         />
-
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {vacation.location}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+        <CardHeader
+          title={<Chip icon={<LocationOnIcon color="error"/>} label={vacation.location} sx={{ backgroundColor:"grey", fontSize:"1rem", color:"white"  }} />}
+          subheader={<Typography sx={{ color:"grey" }}>{["available between : " + vacation.date_from.toLocaleString().split("T")[0] + " - " +  vacation.date_to.toLocaleString().split("T")[0]]}</Typography>}
+          sx={{ color:"white", textAlign:"left"}}
+        />
+          <Typography gutterBottom variant="body2" color="text.secondary"  sx={{ color:"white" }}>
             {vacation.information}
           </Typography>
-        </CardContent>
 
-        <CardActions>
-          
+        <CardContent sx={{ textAlign:"left" }}>
+          <Typography gutterBottom variant="h5" component="div" sx={{ color:"white" }}>
+            {vacation.price + "$"}
+          </Typography>
+          <Badge badgeContent={vacation.id} color="primary">
+            <Chip label="followers" sx={{ color:"white"  }} />
+          </Badge>
+        </CardContent>
+        
+        <CardActions sx={{ position:"absolute", right:"2px", bottom:"2px" }}>
           {vacation.user_role === "admin" ?
           // _________________Admin Section__________________
             <Box sx={{ display:"flex" }}>

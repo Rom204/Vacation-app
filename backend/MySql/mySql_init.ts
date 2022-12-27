@@ -30,6 +30,7 @@ const create_vacations_and_users =`
     id INT NOT NULL AUTO_INCREMENT,
     vacation_id INT NULL,
     user_id INT(45) NULL,
+    vacation_name VARCHAR(45) NULL,
     PRIMARY KEY (id));
 `;
 
