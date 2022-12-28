@@ -16,7 +16,7 @@ interface DialogProps extends VacationModel {
   handleEdit: () => void;
 }
 
-const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose, handleEdit,  }: DialogProps) => {
+const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose, handleEdit }: DialogProps) => {
   console.log(vacation_id)
   const [file, setFile] = useState("");
   const [vacation, setVacation] = useState<VacationModel>()

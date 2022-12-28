@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserModel } from "../../Models/user_model";
 import { VacationModel } from "../../Models/vacation_model";
 import { Badge, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Chip, Typography } from "@mui/material";
@@ -9,19 +9,29 @@ import EditDialog from "./EditDialog";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface props extends VacationModel {
-  // followers: any;
+  followers: any;
 }
+
 interface iprops extends UserModel {
   filter: (id:number) => void;
   following: () => void;
 }
 
 export default function SingleVacation (vacation : props & iprops) {
-  // console.log('number',vacation.followers);
+  
   const isAuth = useAppSelector((state) => state.user);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [followers, setFollowers] = useState<any>("");
   
+  useEffect(() => {
+    axios.get(`http://localhost:3000/vacation/single-followers/${vacation.id}`)
+    .then((response) => {
+      setFollowers(response.data[0].followers)
+    })
+  },[]);
+  
+console.log(followers);
   const handleClickOpenDelete = () => {
     setOpenDelete(true);
   };
@@ -75,7 +85,7 @@ export default function SingleVacation (vacation : props & iprops) {
           <Typography gutterBottom variant="h5" component="div" sx={{ color:"white" }}>
             {vacation.price + "$"}
           </Typography>
-          <Badge badgeContent={vacation.id} color="primary">
+          <Badge badgeContent={followers} color="primary">
             <Chip label="followers" sx={{ color:"white"  }} />
           </Badge>
         </CardContent>
@@ -84,7 +94,6 @@ export default function SingleVacation (vacation : props & iprops) {
           {vacation.user_role === "admin" ?
           // _________________Admin Section__________________
             <Box sx={{ display:"flex" }}>
-              
               <DeleteDialog 
                 vacation_id={vacation.id} 
                 state={openDelete} 

@@ -34,6 +34,16 @@ const getAllVacations = async (): Promise<VacationModel> => {
     return vacation;
 }
 
+const singleVacationFollowers = async (id: number) => {
+    console.log(id)
+    const sql = `
+        SELECT COUNT(*) as followers FROM vacation.vacations_and_users WHERE vacation_id =${id}
+    `;
+    const followers = await dal.execute(sql);
+    console.log(followers);
+    return followers;
+}
+
 const getAllVacationsCount = async () => {
     // const sql = `
     //     SELECT COUNT(${id}) FROM vacation.vacations_table
@@ -85,6 +95,16 @@ const addVacation = async (newVacation: VacationModel, next): Promise<VacationMo
     return newVacation;
 } 
 
+const updateVacationName = async (name:string, id:number) => {
+    const sql = `
+        UPDATE vacation.vacations_and_users
+        SET
+        vacation_name = '${name}'
+        WHERE vacation_id = '${id}'
+    `;
+    await dal.execute(sql);
+}
+
 
 const updateVacation = async (vacation: VacationModel): Promise<VacationModel> => {
     console.log(vacation)
@@ -109,6 +129,7 @@ const updateVacation = async (vacation: VacationModel): Promise<VacationModel> =
             price = '${vacation.price}'
             WHERE id = ${vacation.id}
         `;    
+        
     } if(!vacation.image) {
         sql = `
             UPDATE vacation.vacations
@@ -121,6 +142,7 @@ const updateVacation = async (vacation: VacationModel): Promise<VacationModel> =
             WHERE id = ${vacation.id}
         `;
     }
+    await updateVacationName(vacation.location, vacation.id)
     const result :OkPacket = await dal.execute(sql);
     return vacation;
 }
@@ -149,5 +171,6 @@ export default {
     addVacation,
     deleteVacation,
     updateVacation,
-    getAllVacationsCount
+    getAllVacationsCount,
+    singleVacationFollowers
 }

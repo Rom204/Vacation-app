@@ -19,14 +19,14 @@ function Vacations(): JSX.Element {
 
     
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:3000/vacation/all")
-  //   .then((response) => {
-  //       console.log(response.data);
-  //       setFollowers(response.data);
-  //   })
-  // }, []);
-  // console.log(followers);
+  useEffect(() => {
+    axios.get("http://localhost:3000/vacation/all")
+    .then((response) => {
+        // console.log(response.data);
+        setFollowers(response.data);
+    })
+  }, []);
+  console.log(followers);
     // useEffect(()=> {
     //   if (page === 1) {
     //       let slice = vacations.splice(page-1, 5)
@@ -106,8 +106,10 @@ function Vacations(): JSX.Element {
               matchedPwd={""}
               user_role={isAuth.user_role}
               filter={deleteHandler}
-              following={handleFollowing} prevImageName={""}                // followers={followers}
-                />
+              following={handleFollowing} 
+              prevImageName={""}
+              followers={followers}
+            />
           )
         }) : 
         vacations.map((item, index) => {
@@ -130,7 +132,9 @@ function Vacations(): JSX.Element {
                 matchedPwd={""}
                 user_role={isAuth.user_role}
                 filter={deleteHandler}
-                following={handleFollowing} prevImageName={""}                // followers={followers}
+                following={handleFollowing} 
+                prevImageName={""}
+                followers={followers[index]}
                 />
             )
         })}
