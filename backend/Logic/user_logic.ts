@@ -137,6 +137,7 @@ const vacationsID = async (userID: number) => {
         SELECT vacation.vacations.*, vacation.user_vacations.user_id
         FROM(SELECT * FROM vacation.vacations_and_users WHERE user_id=${userID}) AS user_vacations
         RIGHT JOIN vacation.vacations ON vacation.vacations.id = user_vacations.vacation_id
+        ORDER BY date_from
         `;
     const result = await dal.execute(sql);
     return result;

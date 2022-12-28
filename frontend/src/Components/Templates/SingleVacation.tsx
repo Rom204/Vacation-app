@@ -9,7 +9,6 @@ import EditDialog from "./EditDialog";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface props extends VacationModel {
-  followers: any;
 }
 
 interface iprops extends UserModel {
@@ -30,7 +29,7 @@ export default function SingleVacation (vacation : props & iprops) {
       setFollowers(response.data[0].followers)
     })
   },[]);
-  
+
 console.log(followers);
   const handleClickOpenDelete = () => {
     setOpenDelete(true);
