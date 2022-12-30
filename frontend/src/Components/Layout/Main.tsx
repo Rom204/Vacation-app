@@ -1,10 +1,8 @@
 // REACT IMPORTS 
-import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 // MUI IMPORTS
 import { Box } from "@mui/material";
 //MY IMPORTS
-import { UserModel } from "../../Models/user_model";
 import { Admin } from "../Pages/Admin";
 import Follow from "../Pages/Follow";
 import Home from "../Pages/Home";
@@ -25,7 +23,6 @@ function Main(): JSX.Element {
                 <Route path="/user" element={<PrivateAdminRouter/>}>
                     <Route path="admin" element={<Admin/>}/>
                 </Route>
-                {/* follow route needed to be a protected route  */}
                 <Route path="/user" element={<PrivateOutletRouter/>}>
                     <Route path="follow" element={<Follow/>}/>
                 </Route>

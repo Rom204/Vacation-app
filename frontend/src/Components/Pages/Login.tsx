@@ -29,7 +29,7 @@ function Login(): JSX.Element {
         }
     });
     
-    const isAuth = useAppSelector((state) => state.user);
+    // const isAuth = useAppSelector((state) => state.user);
     const [username, Pwd] = watch(["username", "Pwd"]);
     const [errMsg, setErrMsg] = useState('');
 

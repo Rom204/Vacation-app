@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
 
 import { Box, Card, Typography } from "@mui/material";
 
-import axios from "axios";
-
 function Follow(): JSX.Element {
-    // useEffect(() => {
-    //     axios.get(`url`)
-    //     .then((response) => {
-    //         console.log(response);
-    //     })
-    // },[]);
 
     return (
         <Box sx={{ padding:"3rem", height: "100vh", display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", backgroundImage: "linear-gradient(to right, #403a3e, #be5869)" }}>

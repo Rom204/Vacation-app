@@ -9,6 +9,7 @@ import { useAppSelector } from "../../hooks";
 function Vacations(): JSX.Element {
 
     const isAuth = useAppSelector((state) => state.user);
+    
     const [original, setOriginal] = useState<VacationModel[]>([])
     const [vacations, setVacations] = useState<VacationModel[]>([])
     const [isFollowed, setIsFollowed] = useState<boolean>(false);

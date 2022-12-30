@@ -16,7 +16,7 @@ interface DialogProps extends VacationModel {
 }
 
 const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose }: DialogProps) => {
-  console.log(vacation_id)
+  // console.log(vacation_id)
   const [file, setFile] = useState("");
   const { register, handleSubmit } = useForm<VacationModel>({
     defaultValues : 
@@ -38,9 +38,9 @@ const EditDialog = ({ information, location, image, imageName, prevImageName, da
   }
 
   const checkValid  = async (newVacation : VacationModel)  => {
-    console.log(file);
+    // console.log(file);
     newVacation.image = file;
-    console.log(newVacation);
+    // console.log(newVacation);
     axios.put("http://localhost:3000/vacation/add", newVacation,
         {
         headers: {

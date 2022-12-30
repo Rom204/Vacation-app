@@ -1,5 +1,5 @@
 // REACT REDUX IMPORTS
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from "../../../hooks"
 
