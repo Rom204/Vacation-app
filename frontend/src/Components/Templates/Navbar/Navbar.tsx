@@ -30,7 +30,7 @@ export default function Navbar() {
   }
 
   const navigation = [
-    { name: "Vacations", path: "/user/vacations", icon: faMagnifyingGlass  },
+    { name: "Vacations", path: "/user/vacations", icon: faMagnifyingGlass },
     { name: "follow", path: "/user/follow", icon: faMapLocationDot }, 
   ] 
 
@@ -54,8 +54,9 @@ export default function Navbar() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2 , backgroundImage:"../../../../Assets/icons8-vacation-64.png"}}
           >
+            
             <FontAwesomeIcon icon={faMapLocationDot}/>
             Travel
           </IconButton>

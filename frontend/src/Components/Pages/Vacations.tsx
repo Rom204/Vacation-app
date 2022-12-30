@@ -1,4 +1,4 @@
-import { Box, Button, Pagination, Stack } from "@mui/material";
+import { Box, Button, Menu, MenuItem, Pagination, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { VacationModel } from "../../Models/vacation_model";
@@ -9,6 +9,7 @@ import { useAppSelector } from "../../hooks";
 function Vacations(): JSX.Element {
 
     const isAuth = useAppSelector((state) => state.user);
+    const [original, setOriginal] = useState<VacationModel[]>([])
     const [vacations, setVacations] = useState<VacationModel[]>([])
     const [isFollowed, setIsFollowed] = useState<boolean>(false);
     const [page, setPage] = useState(1);
@@ -22,6 +23,7 @@ function Vacations(): JSX.Element {
           axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
           .then((response) => {
               setVacations(response.data)
+              setOriginal(response.data)
           })
         } else {
           console.log("error no user connected to vacations page")
@@ -31,7 +33,15 @@ function Vacations(): JSX.Element {
     const filter = () => {
       let newData = vacations.filter((vacation)=> vacation.user_id !== null)
       setVacations(newData)
+      setAnchorEl(null);
+      setPage(1)
     }
+
+    const allFilter = () => {
+      setVacations(original);
+      setAnchorEl(null);
+      setPage(1);
+    };
   
     const deleteHandler = (id : number) => {
       setVacations(vacations.filter((vacation) => vacation.id!== id));
@@ -40,15 +50,45 @@ function Vacations(): JSX.Element {
     const handleFollowing = () => {
       setIsFollowed(!isFollowed);
     }
-    
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
     return (
       <Box sx={{ height:{xs:"100%"}, justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap", position:"relative",padding:"1rem", backgroundColor:"#303950" }}>
-        <Box sx={{ border: "1px solid black", display:"flex", borderRadius:"5px", width:"50%", marginLeft:"25%"}}>
-          <Button onClick={filter}>what i follow</Button>
-          <Stack spacing={2} >
-            <Pagination  count={10} page={page} onChange={handleChange} color="standard" />
-          </Stack>
-        </Box>
+        <Button 
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              sx={{ display: {xs: "block", md: "block"} , backgroundColor:"whitesmoke"}} color="info" onClick={handleClick}>
+                Filter By
+        </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem disabled sx={{ color: "blue", fontWeight:'600', borderBottom:"1px solid" }}>choose category :</MenuItem>
+            <MenuItem onClick={allFilter}>all vacations</MenuItem>
+            <MenuItem onClick={filter}>vacations I follow</MenuItem>
+            <MenuItem onClick={handleClose}>???</MenuItem>
+          </Menu>
+          <Box sx={{  display:"flex", justifyContent:"center", borderRadius:"5px", width:"50%", marginLeft:"25%" }}>
+            <Stack spacing={2}  >
+              <Pagination  count={10} page={page} onChange={handleChange} color="primary" variant="outlined" shape="rounded"  />
+            </Stack>
+          </Box>
         <Box sx={{ display: "flex", justifyContent: "center", textAlign: "center", alignItems: "center", flexWrap: "wrap" }}>
 
         {vacations.slice(((page-1 ) * 10), (page -1) * 10 + 10).map((item, index) => {
