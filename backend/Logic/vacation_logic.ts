@@ -7,7 +7,6 @@ import {v4 as uuid} from "uuid";
 import fs from "fs";
 
 
-
 // functions( async / await ) for getting data from DB
 const getAllVacations = async (): Promise<VacationModel> => {
     // command line for the DB
@@ -15,27 +14,13 @@ const getAllVacations = async (): Promise<VacationModel> => {
         SELECT vacation_name, vacation_id,
         COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id, vacation_name
     `;
-    // const sql = `
-    //     SELECT vacation_id,
-    //     COUNT(vacation.vacations_and_users.vacation_id) AS followers
-    //     FROM vacation.vacations_and_users
-    //     JOIN vacation.vacations
-    //     ON vacation.vacations_and_users.vacation_id = vacation.vacations.id
-    //     GROUP BY vacation_id
-    // `;
-
-    // const sql2 =`
-    //     SELECT SCHEMA_NAME.TABLE_NAME1.*, SCHEMA_NAME.TABLE_NAME2.field_you want to add AS how_the_field_will_be_displayed
-    //     FROM SCHEMA_NAME.TABLE_NAME1 JOIN TABLE_NAME2
-    //     ON SCHEMA_NAME.TABLE1.on_wanted_field = TABLE_NAME2.id
-    // `;
-    // a promise function that connects us to the database with the command line
+    
     const vacation = await dal.execute(sql);
     return vacation;
 }
 
 const singleVacationFollowers = async (id: number) => {
-    console.log(id)
+    // console.log(id)
     const sql = `
         SELECT COUNT(*) as followers FROM vacation.vacations_and_users WHERE vacation_id =${id}
     `;
@@ -45,9 +30,7 @@ const singleVacationFollowers = async (id: number) => {
 }
 
 const getAllVacationsCount = async () => {
-    // const sql = `
-    //     SELECT COUNT(${id}) FROM vacation.vacations_table
-    // `;
+    
     const sql =`
         SELECT vacation.vacations_table.*, vacation_id,
         COUNT(vacation_id) AS followers FROM vacation.vacations_and_users GROUP BY vacation_id
@@ -55,10 +38,6 @@ const getAllVacationsCount = async () => {
         ON vacation.vacations_table.followers = vacation.vacations_and_users.followers
     `;
 
-    // DELETE vacation.vacations, vacation.vacations_and_users
-    //     FROM vacation.vacations
-    //     INNER JOIN vacation.vacations_and_users ON vacation.vacations.id = vacation.vacations_and_users.vacation_id 
-    //     WHERE vacation.vacations.id=${id} 
     const number = await dal.execute(sql);
     return number;
 }

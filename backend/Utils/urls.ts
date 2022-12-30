@@ -1,5 +1,3 @@
-// URL'S definitions.
-
 
 class Users {
     public static getAllUsersURL = "/all";
@@ -7,9 +5,7 @@ class Users {
     public static addUserURL = "/add";
     public static updateUserURL = "/add";
     public static deleteUserURL = "/:id";
-
     public static checkLogin = "/checkLogin";
-
 }
 
 class Vacations {

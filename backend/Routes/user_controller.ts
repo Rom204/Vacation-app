@@ -21,8 +21,7 @@ router.get(Users.getSingleUserUrl, async (request: Request, response: Response, 
   response.status(200).json( await user_logic.getSingleUser(id))
 })
 
-// ________________________________________________________________
-// this is ok!
+
 router.post(Users.addUserURL, async (request: Request, response: Response, next: NextFunction) => {
   try {
     const userData = request.body;
@@ -37,7 +36,7 @@ router.post(Users.addUserURL, async (request: Request, response: Response, next:
     }
   }
 })
-// ________________________________________________________________
+
 
 router.post(Users.checkLogin, async (request: Request, response: Response, next: NextFunction) => {
   try { 

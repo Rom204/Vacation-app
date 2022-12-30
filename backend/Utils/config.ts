@@ -8,6 +8,7 @@ class Config {
     public mySQLPassword = "12345678";
     // schema name   vvvvvvvvvvvv
     public mySQLdb = "something";
+    
     //another database
 }
 
