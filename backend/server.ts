@@ -2,7 +2,6 @@
 import cors from "cors";
 import express from "express";
 import ErrorHandler from "./MiddleWare/route-not-found";
-import controller from "./Routes/controller"
 import config from "./Utils/config";
 import mysql_create_table from "./MySql/mySql_init";
 import user_controller from "./Routes/user_controller";
@@ -33,7 +32,6 @@ server.use(express.json());
 server.use(express.static('./uploadPics'))
 
 // calling ROUTES 
-server.use("/something", controller);
 server.use("/user", user_controller);
 server.use("/vacation",vacation_controller);
 

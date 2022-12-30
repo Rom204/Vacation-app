@@ -34,14 +34,11 @@ export const userSlice = createSlice({
       state.user_id = 0
       state.username = ""
       state.user_role = ""
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.user_id += action.payload
-    },
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout, incrementByAmount } = userSlice.actions
+export const { login, logout } = userSlice.actions
 
 export default userSlice.reducer

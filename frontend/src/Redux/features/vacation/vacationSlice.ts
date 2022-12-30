@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+// have'nt used this vacation reducer
 export interface VacationState {
     id: number;
     information: string;

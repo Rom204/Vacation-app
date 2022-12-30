@@ -8,20 +8,11 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 
-
 // functions( async / await ) for getting data from DB
 const getAllUsers = async (): Promise<UserModel> => {
-    // command line for the DB
     const sql = `
         SELECT * FROM vacation.users
     `;
-
-    // const sql2 =`
-    //     SELECT SCHEMA_NAME.TABLE_NAME1.*, SCHEMA_NAME.TABLE_NAME2.field_you want to add AS how_the_field_will_be_displayed
-    //     FROM SCHEMA_NAME.TABLE_NAME1 JOIN TABLE_NAME2
-    //     ON SCHEMA_NAME.TABLE1.on_wanted_field = SCHEMA_NAME.TABLE_NAME2.id
-    // `;
-    // a promise function that connects us to the database with the command line
     const user = await dal.execute(sql);
     return user;
 }
@@ -75,8 +66,7 @@ const checkLogin = async (user: UserModel) => {
     }
 }
 
-// ________________________________________________________________
-// this is ok!
+
 const addNewUser = async (user: UserModel) => {
     // in mysql username has a unique key 
     const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -92,7 +82,6 @@ const addNewUser = async (user: UserModel) => {
     const response : OkPacket = await dal.execute(sql);
     user.user_id = response.insertId;
 } 
-// ________________________________________________________________
 
 
 const updateUser = async (user: UserModel): Promise<UserModel> => {

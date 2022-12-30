@@ -1,11 +1,5 @@
 // URL'S definitions.
-class Urls {
-    public static getAllSomethingURL = "/all";
-    public static getSingleSomethingURL = "/:id";
-    public static addSomethingURL = "/add";
-    public static deleteSomethingURL = "/:id";
-    public static updateSomethingURL = "/add";
-}
+
 
 class Users {
     public static getAllUsersURL = "/all";
@@ -27,7 +21,6 @@ class Vacations {
 }
 
 export {
-    Urls,
     Users,
     Vacations,
 } ;
