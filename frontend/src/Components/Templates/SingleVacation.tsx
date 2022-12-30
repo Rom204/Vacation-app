@@ -8,6 +8,7 @@ import DeleteDialog from "./DeleteDialog";
 import EditDialog from "./EditDialog";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
+// TODO: more described properties
 interface props extends VacationModel {
 }
 
@@ -30,7 +31,7 @@ export default function SingleVacation (vacation : props & iprops) {
     })
   },[]);
 
-console.log(followers);
+// console.log(followers);
   const handleClickOpenDelete = () => {
     setOpenDelete(true);
   };
@@ -58,11 +59,12 @@ console.log(followers);
     vacation.filter(id);
     handleCloseDelete()
   };
-
-  const handleEdit = () => {
-    axios.put(`http://localhost:3000/user/allVacations`)
-    handleCloseEdit();
-  }
+  
+  // might return it because when editing a vacation the page wont re-render
+  // const handleEdit = () => {
+  //   axios.put(`http://localhost:3000/user/allVacations`)
+  //   handleCloseEdit();
+  // }
     return (
       <Card key={vacation.id} elevation={24} sx={{ backgroundColor:"#303950", height: "55%" , width: {xs: "70%", md: "45%"}, display: "flex",  flexDirection: "column", margin: "1rem", border:"solid 0.5px grey", position:"relative" }}>
         <CardMedia
@@ -105,7 +107,7 @@ console.log(followers);
                 state={openEdit}
                 handleOpen={handleClickOpenEdit}
                 handleClose={handleCloseEdit}
-                handleEdit={handleEdit} id={0}
+                id={0}
                 information={vacation.information}
                 location={vacation.location}
                 image={vacation.image}

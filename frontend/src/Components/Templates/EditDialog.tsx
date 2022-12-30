@@ -1,10 +1,9 @@
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, Button, Card, Box } from "@mui/material"
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Tooltip, Button, Box } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import { useForm } from "react-hook-form";
 import { VacationModel } from "../../Models/vacation_model";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
 import { TextField } from "@mui/joy";
 
 
@@ -13,13 +12,12 @@ interface DialogProps extends VacationModel {
   state: boolean;
   handleOpen: () => void;
   handleClose: () => void;
-  handleEdit: () => void;
+  // handleEdit: () => void;
 }
 
-const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose, handleEdit }: DialogProps) => {
+const EditDialog = ({ information, location, image, imageName, prevImageName, date_from, date_to, price, user_id, id, vacation_id, state, handleOpen, handleClose }: DialogProps) => {
   console.log(vacation_id)
   const [file, setFile] = useState("");
-  const [vacation, setVacation] = useState<VacationModel>()
   const { register, handleSubmit } = useForm<VacationModel>({
     defaultValues : 
     {
@@ -93,7 +91,7 @@ const EditDialog = ({ information, location, image, imageName, prevImageName, da
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} autoFocus color="inherit">Cancel</Button>
-              <Button onClick={() => {handleEdit()}} color="warning">Edit</Button>
+              {/* <Button onClick={() => {handleEdit()}} color="warning">Edit</Button> */}
             </DialogActions>
           </Dialog>
         </Box>
