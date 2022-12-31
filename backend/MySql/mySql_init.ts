@@ -21,7 +21,6 @@ const create_vacations_table =`
     date_from DATE NULL,
     date_to DATE NULL,
     price DECIMAL(6,2) NULL,
-    followers JSON NULL,
     PRIMARY KEY (id));
 `;
 
