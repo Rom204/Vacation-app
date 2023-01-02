@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { VacationModel } from "../../Models/vacation_model";
 
 import SingleVacation from "../Templates/SingleVacation";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { setVacation } from "../../Redux/features/vacation/vacationSlice";
 
 function Vacations(): JSX.Element {
-
+  const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => state.user);
-    
+    const vacationState = useAppSelector((state) => state.vacation);
     const [original, setOriginal] = useState<VacationModel[]>([])
     const [vacations, setVacations] = useState<VacationModel[]>([])
     const [isFollowed, setIsFollowed] = useState<boolean>(false);
@@ -17,12 +18,13 @@ function Vacations(): JSX.Element {
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
+  console.log("vacation state :", vacationState);
     useEffect(() => {
         if (isAuth) {
           console.log(isAuth.user_id)
           axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
           .then((response) => {
+              dispatch(setVacation(response.data))
               setVacations(response.data)
               console.log(response.data)
               setOriginal(response.data)

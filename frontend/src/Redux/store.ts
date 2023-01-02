@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/user/userSlice";
-// import vacationReducer from "./features/vacation/vacationSlice";
+import vacationReducer from "./features/vacation/vacationSlice";
 
 
 export const store = configureStore({
@@ -8,7 +8,7 @@ export const store = configureStore({
         user: userReducer,
 
         // have'nt used this vacation reducer
-        // vacation: vacationReducer
+        vacation: vacationReducer
     }
 });
 
