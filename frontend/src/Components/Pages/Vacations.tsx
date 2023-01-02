@@ -24,6 +24,7 @@ function Vacations(): JSX.Element {
           axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
           .then((response) => {
               setVacations(response.data)
+              console.log(response.data)
               setOriginal(response.data)
           })
         } else {

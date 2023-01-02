@@ -1,5 +1,5 @@
 // base ClientError class
-export class ClientError { 
+export class ClientError {
     public status: number;
     public message: string;
 
@@ -10,10 +10,10 @@ export class ClientError {
 }
 // "Child" ClientError class
 export class RouteNotFoundError extends ClientError {
-    
+
     public constructor(route: string) {
-        
+
         super(404, ` route ${route} not found`);
-    
+
     }
 }
