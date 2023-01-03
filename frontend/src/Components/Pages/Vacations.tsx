@@ -6,6 +6,7 @@ import { VacationModel } from "../../Models/vacation_model";
 import SingleVacation from "../Templates/SingleVacation";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setVacation } from "../../Redux/features/vacation/vacationSlice";
+import { getVacations } from "../../utils/api";
 
 function Vacations(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,12 +23,12 @@ function Vacations(): JSX.Element {
     useEffect(() => {
         if (isAuth) {
           console.log(isAuth.user_id)
-          axios.get(`http://localhost:3000/user/vacationsID/${isAuth.user_id}`)
+          getVacations(`/vacationsID/${isAuth.user_id}`)
           .then((response) => {
-              dispatch(setVacation(response.data))
-              setVacations(response.data)
-              console.log(response.data)
-              setOriginal(response.data)
+            console.log("new response:",response)
+            dispatch(setVacation(response.data))
+            setVacations(response.data)
+            setOriginal(response.data)
           })
         } else {
           console.log("error no user connected to vacations page")
