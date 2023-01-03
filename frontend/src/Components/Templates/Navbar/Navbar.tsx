@@ -22,6 +22,7 @@ export default function Navbar() {
   const isAuth = useAppSelector((state) => state.user);
 
   const navigate = useNavigate()
+  
   const logoutHandler = () => { 
       handleClose()
       dispatch(logout());
@@ -37,11 +38,22 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const [el, setEl] = useState<null | HTMLElement>(null);
+  const menu = Boolean(el);
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleMenuClose = () => {
+    setEl(null);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setEl(event.currentTarget);
   };
 
   return (
@@ -90,7 +102,9 @@ export default function Navbar() {
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
-              sx={{ display: {xs: "none", md: "block"} }} color="inherit" onClick={handleClick}>
+              sx={{ display: {xs: "none", md: "block"} }} 
+              color="inherit" 
+              onClick={handleClick}>
                 <AccountCircleIcon/>
             </IconButton>
             </Tooltip>
@@ -117,7 +131,41 @@ export default function Navbar() {
                 <Button sx={{ display: {xs: "none", md: "block"} }} color="inherit">login</Button>
               </NavLink>
           )}
-          <Button sx={{ display: {xs: "block", md: "none"}, color: "white"}}><MenuIcon sx={{fontSize: "36px" }}/></Button>     
+          <Button  
+            sx={{ display: {xs: "block", md: "none"}, color: "white"}}
+            aria-controls={menu ? 'menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={menu ? 'true' : undefined}
+            color="inherit" 
+            onClick={handleMenuClick}>
+            <MenuIcon sx={{fontSize: "36px" }}/>
+            </Button>
+            <Menu
+              id="menu"
+              anchorEl={el}
+              open={menu}
+              onClose={handleMenuClose}
+              MenuListProps={{
+                'aria-labelledby': 'button',
+              }}
+              
+            >
+              <MenuItem disabled sx={{ color: "blue", fontWeight:'600' }}>MENU</MenuItem>
+              {navigation.map((item) => {
+                return (
+                  <NavLink 
+                    key={item.name}
+                    to={item.path} 
+                    className="NavLink">
+                  <MenuItem 
+                    onClick={handleMenuClose}
+                    sx={{ color:"black" }} >
+                      {item.name}
+                  </MenuItem>
+                  </NavLink>
+                  )
+                  })}
+            </Menu>
         </Toolbar>
       </AppBar>
     </Box>
