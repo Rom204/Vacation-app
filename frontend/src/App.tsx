@@ -3,7 +3,6 @@ import Header from './Components/Layout/Header';
 import Main from './Components/Layout/Main';
 import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from './hooks';
-// import axios from 'axios';
 import { login } from './Redux/features/user/userSlice';
 import { authAxiosInstance } from './utils/api';
 
@@ -19,11 +18,6 @@ function App() {
         authAxiosInstance(token)
         .post("/checkToken")
         .then(response => dispatch(login(response.data)))
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        // axios.post("http://localhost:3000/user/checkToken")
-        // .then((response) => {
-        //   dispatch(login(response.data))
-        // })
       }
     }
   },[]);
